@@ -1,69 +1,9 @@
 #!/usr/bin/env python
-import socket
 import logging
 import optparse
 import asyncore
 
-from state_server.core import state
-
-OK_MSG = '_ok'
-NA_MSG = '_na'
-
-class QueryHandler(asyncore.dispatcher_with_send):
-    def handle_cmd(self, varname, value=None):
-        logging.debug('Query- varname: %s, value: %s' % (varname, value))
-        current_val = self.state_obj.get(varname)
-
-        if value is None:
-            if current_val is None:
-                return NA_MSG
-            else:
-                return current_val
-        else:
-            self.state_obj.set(varname, value)
-            return OK_MSG
-
-
-    def handle_read(self):
-        try:
-            data = self.recv(4096)
-        except socket.error:
-            return
-        inputs = data.strip().split('\n')
-        logging.debug('Inputs: %s' % inputs)
-        for inp in inputs:
-            if len(inp) == 0:
-                continue
-            cmd = inp.split(' ')
-            result = self.handle_cmd(*cmd)
-            try:
-                self.send("%s\n" % result)
-            except socket.error:
-                return
-
-class StateServer(asyncore.dispatcher):
-    def __init__(self, host, port):
-        asyncore.dispatcher.__init__(self)
-        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.set_reuse_addr()
-        self.bind((host, port))
-        self.listen(5)
-
-        self.connection_id = 0
-        self.state_obj = state.State()
-
-    def handle_accept(self):
-        pair = self.accept()
-        if pair is None:
-            pass
-        else:
-            sock, addr = pair
-            logging.debug('Incoming connection #%d from %s' %
-                 (self.connection_id, repr(addr)))
-
-            self.connection_id += 1
-            handler = QueryHandler(sock)
-            handler.state_obj = self.state_obj
+from state_server.core import server
 
 def main():
     parser = optparse.OptionParser()
@@ -82,7 +22,7 @@ def main():
 
     logging.debug('Init')
     host, port = 'localhost', int(opts.port)
-    server = StateServer(host, port)
+    srv = server.StateServer(host, port)
     logging.info('Listening on %s %s' % (host, port))
 
     asyncore.loop()
