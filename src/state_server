@@ -3,23 +3,10 @@ import socket
 import logging
 import asyncore
 
+from core import state
+
 OK_MSG = '_ok'
 NA_MSG = '_na'
-
-class State(object):
-    __state_dict = {}
-
-    def set(self, name, value):
-        self.__state_dict[name] = value
-
-    def get(self, name):
-        if name in self.__state_dict:
-            return self.__state_dict[name]
-        else:
-            return None
-
-    def dump(self):
-        return self.__state_dict
 
 class QueryHandler(asyncore.dispatcher_with_send):
     def handle_cmd(self, varname, value=None):
@@ -62,7 +49,7 @@ class StateServer(asyncore.dispatcher):
         self.listen(5)
 
         self.connection_id = 0
-        self.state_obj = State()
+        self.state_obj = state.State()
 
     def handle_accept(self):
         pair = self.accept()
