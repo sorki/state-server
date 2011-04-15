@@ -28,6 +28,7 @@ class QueryHandler(asyncore.dispatcher_with_send):
         inputs = data.strip().split('\n')
         logging.debug('Inputs: %s' % inputs)
         for inp in inputs:
+            inp = inp.strip()
             if len(inp) == 0:
                 continue
             cmd = inp.split(' ')
