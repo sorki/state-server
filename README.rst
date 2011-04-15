@@ -15,4 +15,4 @@ Requirements:
 Installation:
 --------------
  - install state-server (`easy_install state-server` or `pip install state-server`)
- - run `state-server`
+ - run `state_server`

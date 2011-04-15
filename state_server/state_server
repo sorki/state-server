@@ -3,7 +3,7 @@ import socket
 import logging
 import asyncore
 
-from core import state
+from state_server.core import state
 
 OK_MSG = '_ok'
 NA_MSG = '_na'
