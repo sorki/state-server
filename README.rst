@@ -7,7 +7,7 @@ Used as an alternative to interprocess communication
 or message queuing.
 
 Example:
-=========
+---------
 
 Legend:
  - `>` - netcat inputs
