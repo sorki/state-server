@@ -26,7 +26,7 @@ class TestSocket(object):
     def set_data(self, data):
         self.test_str = data
 
-class testStateServer(unittest.TestCase):
+class testHandler(unittest.TestCase):
     def setUp(self):
         sock = TestSocket()
         self.h = handler.QueryHandler(sock)
