@@ -1,0 +1,4 @@
+C++ headers + sample main (example.cc)
+
+Compile:
+ g++ *.cc -o state_cpp
