@@ -6,7 +6,7 @@ except ImportError:
     from distutils.core import setup
 
 NAME = 'state-server'
-VERSION = '0.1'
+VERSION = '0.2'
 
 
 # Compile the list of packages available, because distutils doesn't have
