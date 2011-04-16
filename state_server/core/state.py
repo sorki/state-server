@@ -1,5 +1,6 @@
 class State(object):
-    __state_dict = {}
+    def __init__(self):
+        self.__state_dict = {}
 
     def set(self, name, value):
         self.__state_dict[name] = value
