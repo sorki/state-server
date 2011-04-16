@@ -1,0 +1,5 @@
+#!/bin/bash
+
+out=`echo "varname_1" | nc -v localhost 12300`
+
+echo $out
