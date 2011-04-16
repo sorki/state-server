@@ -25,6 +25,8 @@ class QueryHandler(asyncore.dispatcher_with_send):
             data = self.recv(4096)
         except socket.error:
             return
+
+        logging.debug('Raw input "%s"' % data)
         inputs = data.strip().split('\n')
         logging.debug('Inputs: %s' % inputs)
         for inp in inputs:
