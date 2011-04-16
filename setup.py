@@ -1,5 +1,9 @@
-from distutils.core import setup
 import os
+
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
 NAME = 'state-server'
 VERSION = '0.1'
@@ -46,6 +50,7 @@ setup(name=NAME,
         package_dir={'state_server': 'state_server'},
         packages=packages,
         scripts=['state_server/state_server'],
+        test_suite= 'state_server.tests.test.get_suite',
         package_data={'state_server': data_files},
 
         classifiers=['Development Status :: 4 - Beta',
