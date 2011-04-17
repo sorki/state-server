@@ -1,0 +1,7 @@
+Java package + sample (Example.java)
+
+Compile:
+ javac Example.java
+
+Run:
+ java Example

@@ -13,7 +13,7 @@ public class State {
     private BufferedReader is;
     private String out;
 
-    State() {
+    public State() {
         try {
                 this.socket = new Socket("localhost", 12300);
                 this.os = new DataOutputStream(
@@ -82,13 +82,5 @@ public class State {
         if(! this.no_error) return false;
 
         return post_msg(varname + " " + value);
-    }
-
-    public static void main(String args[]) {
-        State st = new State();
-        st.set("test", "value");
-        st.query("test");
-        System.out.println(st.get());
-        st.close();
     }
 }
