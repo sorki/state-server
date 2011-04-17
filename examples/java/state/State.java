@@ -74,13 +74,19 @@ public class State {
 
     public boolean query(String varname) {
         if(! this.no_error) return false;
+        if(! post_msg(varname)) {
+            return false;
+        }
 
-        return post_msg(varname);
+        return ! this.get().equals("_na");
     }
 
     public boolean set(String varname, String value) {
         if(! this.no_error) return false;
+        if(! post_msg(varname + " " + value)) {
+            return false;
+        }
 
-        return post_msg(varname + " " + value);
+        return this.get().equals("ok");
     }
 }
