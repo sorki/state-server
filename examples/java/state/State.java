@@ -89,4 +89,12 @@ public class State {
 
         return this.get().equals("ok");
     }
+
+    public boolean set(String varname, double value) {
+        return set(varname, "" + value);
+    }
+
+    public boolean set(String varname, int value) {
+        return set(varname, "" + value);
+    }
 }
