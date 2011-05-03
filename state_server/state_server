@@ -11,6 +11,8 @@ def main():
         help='Turn on debugging messages')
     parser.add_option('-p', '--port', metavar='PORT',
         help='Port number', default='12300')
+    parser.add_option('--timedump', metavar='FILE',
+        help='Dump state of the variables over time', default=None)
 
     (opts, args) = parser.parse_args()
 
@@ -22,7 +24,7 @@ def main():
 
     logging.debug('Init')
     host, port = 'localhost', int(opts.port)
-    srv = server.StateServer(host, port)
+    srv = server.StateServer(host, port, opts.timedump)
     logging.info('Listening on %s %s' % (host, port))
 
     asyncore.loop()

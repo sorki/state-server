@@ -6,7 +6,7 @@ from state_server.core import state
 from state_server.core import handler
 
 class StateServer(asyncore.dispatcher):
-    def __init__(self, host, port):
+    def __init__(self, host, port, timedump=None):
         asyncore.dispatcher.__init__(self)
         self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
         self.set_reuse_addr()
@@ -14,7 +14,10 @@ class StateServer(asyncore.dispatcher):
         self.listen(5)
 
         self.connection_id = 0
-        self.state_obj = state.State()
+        if timedump:
+            self.state_obj = state.TimedState(timedump)
+        else:
+            self.state_obj = state.State()
 
     def handle_accept(self):
         pair = self.accept()
